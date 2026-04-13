@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0D1B2A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a3040;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pinGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E53935;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pulseGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#26C6DA;stop-opacity:0.4" />
+      <stop offset="50%" style="stop-color:#00ACC1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect x="0" y="0" width="120" height="120" rx="24" ry="24" fill="url(#bgGrad)"/>
+
+  <!-- Subtle circuit/grid lines -->
+  <line x1="0" y1="60" x2="120" y2="60" stroke="white" stroke-width="0.4" opacity="0.06"/>
+  <line x1="60" y1="0" x2="60" y2="120" stroke="white" stroke-width="0.4" opacity="0.06"/>
+
+  <!-- EKG / Pulse line -->
+  <polyline
+    points="10,65  25,65  33,65  40,30  50,95  57,48  63,65  78,65"
+    fill="none"
+    stroke="url(#pulseGrad2)"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    filter="url(#glow2)"
+  />
+
+  <!-- Location Pin -->
+  <!-- Pin circle -->
+  <circle cx="97" cy="52" r="16" fill="url(#pinGrad2)"/>
+  <!-- Pin tail -->
+  <path d="M 88,62 Q 97,82 97,82 Q 97,82 106,62 Z" fill="url(#pinGrad2)"/>
+  <!-- White inner dot -->
+  <circle cx="97" cy="52" r="6.5" fill="white" opacity="0.92"/>
+  <!-- Tiny pulse inside dot -->
+  <polyline
+    points="92,52  94.5,52  95.5,48  97,56  98.5,46  99.5,52  102,52"
+    fill="none"
+    stroke="#E53935"
+    stroke-width="1.1"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Connection node -->
+  <circle cx="78" cy="65" r="2.5" fill="#26C6DA"/>
+
+  <!-- PULSE text -->
+  <text x="10" y="100"
+        font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+        font-size="13"
+        font-weight="900"
+        letter-spacing="1"
+        fill="white">PULSE</text>
+
+  <!-- READY text in teal -->
+  <text x="10" y="115"
+        font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+        font-size="13"
+        font-weight="900"
+        letter-spacing="1"
+        fill="#26C6DA">READY</text>
+
+</svg>

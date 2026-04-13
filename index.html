@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AED Finder — Project Hub</title>
+  <title>PulseReady — Project Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -11,8 +11,10 @@
 
     :root {
       --navy:      #0D1B2A;
-      --green:     #4A7C2E;
-      --green-lt:  #7CB342;
+      --green:     #00838F;
+      --green-lt:  #26C6DA;
+      --red:       #E53935;
+      --coral:     #FF6B6B;
       --gray:      #6B7280;
       --bg:        #F4F6F8;
       --white:     #FFFFFF;
@@ -64,7 +66,7 @@
       letter-spacing: 0.01em;
     }
     .project-name span {
-      color: var(--green-lt);
+      color: var(--coral);
     }
     .header-right {
       display: flex;
@@ -72,9 +74,9 @@
       gap: 0.75rem;
     }
     .badge {
-      background: rgba(74,124,46,0.25);
-      border: 1px solid var(--green);
-      color: var(--green-lt);
+      background: rgba(229,57,53,0.18);
+      border: 1px solid var(--coral);
+      color: var(--coral);
       font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -85,7 +87,7 @@
 
     /* ─── HERO STRIP ─────────────────────────────────── */
     .hero {
-      background: linear-gradient(135deg, var(--navy) 0%, #1a3550 60%, #0f2a1a 100%);
+      background: linear-gradient(135deg, var(--navy) 0%, #0d2535 55%, #1a1228 100%);
       padding: 3.5rem 2rem 3rem;
       position: relative;
       overflow: hidden;
@@ -96,7 +98,7 @@
       top: -80px; right: -80px;
       width: 340px; height: 340px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(74,124,46,0.18) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(229,57,53,0.15) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero::after {
@@ -105,7 +107,7 @@
       bottom: -60px; left: 10%;
       width: 220px; height: 220px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,179,66,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0,172,193,0.12) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-inner {
@@ -119,7 +121,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--green-lt);
+      color: var(--coral);
       margin-bottom: 0.75rem;
     }
     .hero h1 {
@@ -131,7 +133,7 @@
     }
     .hero h1 em {
       font-style: normal;
-      color: var(--green-lt);
+      color: var(--coral);
     }
     .hero-sub {
       font-size: 1.05rem;
@@ -151,7 +153,7 @@
     .stat-value {
       font-size: 1.8rem;
       font-weight: 800;
-      color: var(--green-lt);
+      color: var(--coral);
       line-height: 1;
     }
     .stat-label {
@@ -211,7 +213,7 @@
       top: 0; left: 0; right: 0;
       height: 4px;
     }
-    .phase-card.active::before  { background: var(--green); }
+    .phase-card.active::before  { background: var(--coral); }
     .phase-card.upcoming::before { background: var(--gray); }
     .phase-card.future::before  { background: #CBD5E1; }
     .phase-number {
@@ -239,7 +241,7 @@
       color: var(--text-muted);
       line-height: 1.7;
     }
-    .phase-items li::before { content: '→ '; color: var(--green); font-weight: 700; }
+    .phase-items li::before { content: '→ '; color: var(--green-lt); font-weight: 700; }
     .phase-status {
       display: inline-block;
       margin-top: 0.75rem;
@@ -250,7 +252,7 @@
       padding: 3px 8px;
       border-radius: 20px;
     }
-    .status-active   { background: rgba(74,124,46,0.12); color: var(--green); }
+    .status-active   { background: rgba(229,57,53,0.10); color: var(--coral); }
     .status-planning { background: rgba(107,114,128,0.1); color: var(--gray); }
     .status-future   { background: rgba(203,213,225,0.4); color: #94A3B8; }
 
@@ -278,7 +280,7 @@
     .doc-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--card-hover);
-      border-color: var(--green);
+      border-color: var(--green-lt);
     }
     .doc-icon {
       width: 36px; height: 36px;
@@ -288,10 +290,10 @@
       flex-shrink: 0;
     }
     .icon-pdf    { background: rgba(220,38,38,0.1); }
-    .icon-plan   { background: rgba(74,124,46,0.1); }
+    .icon-plan   { background: rgba(0,172,193,0.1); }
     .icon-arch   { background: rgba(13,27,42,0.08); }
-    .icon-mkt    { background: rgba(124,179,66,0.12); }
-    .icon-npo    { background: rgba(107,114,128,0.1); }
+    .icon-mkt    { background: rgba(38,198,218,0.12); }
+    .icon-npo    { background: rgba(229,57,53,0.1); }
     .doc-meta {
       display: flex;
       flex-direction: column;
@@ -302,7 +304,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--green);
+      color: var(--green-lt);
     }
     .doc-title {
       font-size: 0.88rem;
@@ -329,15 +331,15 @@
       gap: 0.3rem;
       font-size: 0.72rem;
       font-weight: 600;
-      color: var(--green);
+      color: var(--green-lt);
       text-decoration: none;
       padding: 4px 10px;
-      border: 1.5px solid var(--green);
+      border: 1.5px solid var(--green-lt);
       border-radius: 6px;
       transition: background 0.15s, color 0.15s;
     }
     .doc-link-btn:hover {
-      background: var(--green);
+      background: var(--green-lt);
       color: var(--white);
     }
 
@@ -358,7 +360,7 @@
       transition: border-color 0.15s, transform 0.15s;
     }
     .tech-chip:hover {
-      border-color: var(--green);
+      border-color: var(--green-lt);
       transform: translateY(-2px);
     }
     .tech-layer {
@@ -366,7 +368,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--green);
+      color: var(--green-lt);
       margin-bottom: 3px;
     }
     .tech-name {
@@ -406,7 +408,7 @@
     .avatar {
       width: 52px; height: 52px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--navy), var(--green));
+      background: linear-gradient(135deg, var(--navy), #00838F);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.3rem;
       font-weight: 800;
@@ -421,7 +423,7 @@
     }
     .team-role {
       font-size: 0.75rem;
-      color: var(--green);
+      color: var(--coral);
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -453,6 +455,10 @@
       color: rgba(255,255,255,0.25);
       margin-top: 0.5rem;
     }
+    .section-label {
+      color: var(--green-lt) !important;
+      border-bottom-color: var(--green-lt) !important;
+    }
 
     /* ─── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 600px) {
@@ -473,20 +479,20 @@
            alt="Fructify LLC" onerror="this.style.display='none'" />
     </div>
     <div class="divider-v"></div>
-    <div class="project-name">AED <span>Finder</span> — Project Hub</div>
+    <div class="project-name">Pulse<span>Ready</span> — Project Hub</div>
   </div>
   <div class="header-right">
-    <span class="badge">Phase 0 — Planning</span>
+    <span class="badge">Phase 0 · Planning</span>
   </div>
 </header>
 
 <!-- ─── HERO ─────────────────────────────────────────── -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-tag">Incubated by Fructify LLC</div>
-    <h1>Community <em>AED</em> Management<br />Platform</h1>
+    <div class="hero-tag">Incubated by Fructify LLC · Community AED Management Platform</div>
+    <img src="PulseReady-Logo-Dark.svg" alt="PulseReady" style="height:80px;margin-bottom:1.5rem;display:block;" />
     <p class="hero-sub">
-      Real-time AED tracking for residential communities — GPS geo-fencing, mesh-network fallback,
+      Real-time AED tracking for residential communities — GPS geo-fencing, dual-channel mesh fallback,
       and instant emergency notifications. No app downloads. No sign-in friction. Built for the people who need it most.
     </p>
     <div class="hero-stats">
@@ -783,8 +789,8 @@
     <img src="https://raw.githubusercontent.com/FructifyMe/DigitalAssets/main/logos/darklogofructify.png"
          alt="Fructify LLC" onerror="this.style.display='none'" />
   </div>
-  <div class="footer-tagline">Cultivate Growth. Engineer Success.</div>
-  <div class="footer-copy">© 2026 Fructify LLC — Confidential. Prepared for AED Finder Project Team.</div>
+  <div class="footer-tagline">PulseReady · Community AED Management · Incubated by Fructify LLC</div>
+  <div class="footer-copy">© 2026 Fructify LLC — Confidential. Prepared for the PulseReady Project Team.</div>
 </footer>
 
 </body>
