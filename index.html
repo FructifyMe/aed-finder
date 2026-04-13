@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AED Finder — Project Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:      #0D1B2A;
+      --green:     #4A7C2E;
+      --green-lt:  #7CB342;
+      --gray:      #6B7280;
+      --bg:        #F4F6F8;
+      --white:     #FFFFFF;
+      --border:    #E2E8F0;
+      --text:      #1A2332;
+      --text-muted:#6B7280;
+      --card-shadow: 0 2px 12px rgba(13,27,42,0.08);
+      --card-hover:  0 8px 32px rgba(13,27,42,0.14);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── TOP NAV ─────────────────────────────────────── */
+    header {
+      background: var(--navy);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo-wrap img {
+      height: 36px;
+      display: block;
+    }
+    .divider-v {
+      width: 1px;
+      height: 28px;
+      background: rgba(255,255,255,0.2);
+    }
+    .project-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.01em;
+    }
+    .project-name span {
+      color: var(--green-lt);
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .badge {
+      background: rgba(74,124,46,0.25);
+      border: 1px solid var(--green);
+      color: var(--green-lt);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ─── HERO STRIP ─────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3550 60%, #0f2a1a 100%);
+      padding: 3.5rem 2rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,124,46,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 10%;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,179,66,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--green-lt);
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--green-lt);
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 600px;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: left;
+    }
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--green-lt);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.5);
+      margin-top: 3px;
+    }
+
+    /* ─── MAIN GRID ───────────────────────────────────── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--green);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--green);
+      display: inline-block;
+    }
+
+    /* ─── PHASE TIMELINE ──────────────────────────────── */
+    .phases {
+      margin-bottom: 3rem;
+    }
+    .phase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .phase-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 1.25rem 1.25rem 1rem;
+      border: 1.5px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .phase-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--card-hover);
+    }
+    .phase-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .phase-card.active::before  { background: var(--green); }
+    .phase-card.upcoming::before { background: var(--gray); }
+    .phase-card.future::before  { background: #CBD5E1; }
+    .phase-number {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .phase-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .phase-period {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .phase-items {
+      list-style: none;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .phase-items li::before { content: '→ '; color: var(--green); font-weight: 700; }
+    .phase-status {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .status-active   { background: rgba(74,124,46,0.12); color: var(--green); }
+    .status-planning { background: rgba(107,114,128,0.1); color: var(--gray); }
+    .status-future   { background: rgba(203,213,225,0.4); color: #94A3B8; }
+
+    /* ─── DOCS GRID ───────────────────────────────────── */
+    .docs-section { margin-bottom: 3rem; }
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .doc-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .doc-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--card-hover);
+      border-color: var(--green);
+    }
+    .doc-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .icon-pdf    { background: rgba(220,38,38,0.1); }
+    .icon-plan   { background: rgba(74,124,46,0.1); }
+    .icon-arch   { background: rgba(13,27,42,0.08); }
+    .icon-mkt    { background: rgba(124,179,66,0.12); }
+    .icon-npo    { background: rgba(107,114,128,0.1); }
+    .doc-meta {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .doc-category {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green);
+    }
+    .doc-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      margin-top: 2px;
+    }
+    .doc-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-top: 3px;
+    }
+    .doc-link-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .doc-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--green);
+      text-decoration: none;
+      padding: 4px 10px;
+      border: 1.5px solid var(--green);
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .doc-link-btn:hover {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    /* ─── TECH STACK STRIP ────────────────────────────── */
+    .tech-section { margin-bottom: 3rem; }
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .tech-chip {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      box-shadow: var(--card-shadow);
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .tech-chip:hover {
+      border-color: var(--green);
+      transform: translateY(-2px);
+    }
+    .tech-layer {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      margin-bottom: 3px;
+    }
+    .tech-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .tech-note {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ─── TEAM ────────────────────────────────────────── */
+    .team-section { margin-bottom: 3rem; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .team-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .team-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--card-hover);
+    }
+    .avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--green));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .team-info { flex: 1; }
+    .team-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .team-role {
+      font-size: 0.75rem;
+      color: var(--green);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+    }
+    .team-bio {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-top: 0.5rem;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      padding: 2rem;
+      text-align: center;
+    }
+    .footer-logo img { height: 28px; opacity: 0.9; }
+    .footer-tagline {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .footer-copy {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.25);
+      margin-top: 0.5rem;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 600px) {
+      header { padding: 0 1rem; }
+      .hero  { padding: 2rem 1rem 2rem; }
+      main   { padding: 2rem 1rem 3rem; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────── -->
+<header>
+  <div class="header-left">
+    <div class="logo-wrap">
+      <img src="https://raw.githubusercontent.com/FructifyMe/DigitalAssets/main/logos/darklogofructify.png"
+           alt="Fructify LLC" onerror="this.style.display='none'" />
+    </div>
+    <div class="divider-v"></div>
+    <div class="project-name">AED <span>Finder</span> — Project Hub</div>
+  </div>
+  <div class="header-right">
+    <span class="badge">Phase 0 — Planning</span>
+  </div>
+</header>
+
+<!-- ─── HERO ─────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Incubated by Fructify LLC</div>
+    <h1>Community <em>AED</em> Management<br />Platform</h1>
+    <p class="hero-sub">
+      Real-time AED tracking for residential communities — GPS geo-fencing, mesh-network fallback,
+      and instant emergency notifications. No app downloads. No sign-in friction. Built for the people who need it most.
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-value">4</div>
+        <div class="stat-label">Delivery Phases</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">LTE+LoRa</div>
+        <div class="stat-label">Dual-Channel Comms</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">&lt;60s</div>
+        <div class="stat-label">Alert to Notify</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">501(c)(3)</div>
+        <div class="stat-label">Target Structure</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MAIN ─────────────────────────────────────────── -->
+<main>
+
+  <!-- PHASES -->
+  <section class="phases">
+    <div class="section-label">Roadmap</div>
+    <div class="phase-grid">
+
+      <div class="phase-card active">
+        <div class="phase-number">Phase 0</div>
+        <div class="phase-title">Foundation &amp; Planning</div>
+        <div class="phase-period">Q2 2026</div>
+        <ul class="phase-items">
+          <li>Architecture docs complete</li>
+          <li>Nonprofit feasibility</li>
+          <li>Hardware selection</li>
+          <li>Pilot site scoping (NH)</li>
+        </ul>
+        <span class="phase-status status-active">In Progress</span>
+      </div>
+
+      <div class="phase-card upcoming">
+        <div class="phase-number">Phase 1</div>
+        <div class="phase-title">MVP — Pilot Deploy</div>
+        <div class="phase-period">Q3 2026</div>
+        <ul class="phase-items">
+          <li>LILYGO T-Beam firmware</li>
+          <li>LTE-M + geo-fence alerts</li>
+          <li>Admin dashboard</li>
+          <li>Community map UI</li>
+        </ul>
+        <span class="phase-status status-planning">Planning</span>
+      </div>
+
+      <div class="phase-card future">
+        <div class="phase-number">Phase 2</div>
+        <div class="phase-title">AI Voice Alerts</div>
+        <div class="phase-period">Q4 2026</div>
+        <ul class="phase-items">
+          <li>AI voice agent (Bland.ai)</li>
+          <li>QR responder interface</li>
+          <li>LoRa mesh fallback</li>
+          <li>Incident logging</li>
+        </ul>
+        <span class="phase-status status-future">Future</span>
+      </div>
+
+      <div class="phase-card future">
+        <div class="phase-number">Phase 3</div>
+        <div class="phase-title">Scale &amp; Nonprofit Launch</div>
+        <div class="phase-period">2027</div>
+        <ul class="phase-items">
+          <li>501(c)(3) incorporation</li>
+          <li>Multi-community support</li>
+          <li>Grant fundraising</li>
+          <li>White-label licensing</li>
+        </ul>
+        <span class="phase-status status-future">Future</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DOCS -->
+  <section class="docs-section">
+    <div class="section-label">Project Documents</div>
+    <div class="docs-grid">
+
+      <div class="doc-card">
+        <div class="doc-icon icon-plan">📋</div>
+        <div class="doc-meta">
+          <div class="doc-category">Product</div>
+          <div class="doc-title">Market Requirements Document</div>
+          <div class="doc-desc">Full MRD with 11 market requirements, user stories, and acceptance criteria.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/MRD-AED-Finder.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon icon-plan">🗺️</div>
+        <div class="doc-meta">
+          <div class="doc-category">Product</div>
+          <div class="doc-title">Project Roadmap</div>
+          <div class="doc-desc">4-phase delivery plan with milestones, dependencies, and success metrics.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/Roadmap-AED-Finder.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon icon-arch">⚙️</div>
+        <div class="doc-meta">
+          <div class="doc-category">Technical</div>
+          <div class="doc-title">Technical Architecture</div>
+          <div class="doc-desc">Full system design: LTE-M, LoRa mesh, MQTT bridge, QR interface, voice agent pipeline.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/Technical-Architecture-AED-Finder.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon icon-arch">💻</div>
+        <div class="doc-meta">
+          <div class="doc-category">Technical</div>
+          <div class="doc-title">Claude Code Brief</div>
+          <div class="doc-desc">Developer handoff: DB schema, API endpoints, firmware notes, env vars, Phase 1 MVP scope.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/Claude-Code-Brief-AED-Finder.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon icon-npo">🏛️</div>
+        <div class="doc-meta">
+          <div class="doc-category">Business</div>
+          <div class="doc-title">Nonprofit Feasibility &amp; Structure</div>
+          <div class="doc-desc">501(c)(3) analysis, founding team roles, NH incorporation steps, financial model.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/Nonprofit-Feasibility-AED-Finder.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon icon-npo">🤝</div>
+        <div class="doc-meta">
+          <div class="doc-category">Business</div>
+          <div class="doc-title">Co-Founder Brief — Jim Farley</div>
+          <div class="doc-desc">Jim's role as Board President &amp; CTO, hardware ownership, compensation structure.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/Co-Founder-Brief-Jim-Farley.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon icon-mkt">📊</div>
+        <div class="doc-meta">
+          <div class="doc-category">Market</div>
+          <div class="doc-title">Competition Report</div>
+          <div class="doc-desc">Competitive landscape, positioning gaps, and AED Finder's differentiation strategy.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/Competition-Report-AED-Finder.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon icon-mkt">💰</div>
+        <div class="doc-meta">
+          <div class="doc-category">Market</div>
+          <div class="doc-title">Funding &amp; Grants Strategy</div>
+          <div class="doc-desc">Grant opportunities, foundation targets, and fundraising roadmap for nonprofit launch.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/Funding-Grants-AED-Finder.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-icon icon-mkt">🔬</div>
+        <div class="doc-meta">
+          <div class="doc-category">Market</div>
+          <div class="doc-title">Product Viability Assessment</div>
+          <div class="doc-desc">Market sizing, TAM/SAM/SOM analysis, and go-to-market validation.</div>
+        </div>
+        <div class="doc-link-row">
+          <a class="doc-link-btn" href="docs/Product-Viability-AED-Finder.pdf" target="_blank">📄 View PDF</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="tech-section">
+    <div class="section-label">Technology Stack</div>
+    <div class="tech-grid">
+
+      <div class="tech-chip">
+        <div class="tech-layer">Hardware</div>
+        <div class="tech-name">LILYGO T-Beam v1.2</div>
+        <div class="tech-note">ESP32 + GPS + LoRa</div>
+      </div>
+      <div class="tech-chip">
+        <div class="tech-layer">Cellular</div>
+        <div class="tech-name">Quectel BG95</div>
+        <div class="tech-note">LTE-M / Cat-M1</div>
+      </div>
+      <div class="tech-chip">
+        <div class="tech-layer">Mesh Network</div>
+        <div class="tech-name">Meshtastic</div>
+        <div class="tech-note">915MHz LoRa fallback</div>
+      </div>
+      <div class="tech-chip">
+        <div class="tech-layer">Broker</div>
+        <div class="tech-name">HiveMQ</div>
+        <div class="tech-note">MQTT cloud bridge</div>
+      </div>
+      <div class="tech-chip">
+        <div class="tech-layer">Backend</div>
+        <div class="tech-name">Node.js / Express</div>
+        <div class="tech-note">REST API + WebSocket</div>
+      </div>
+      <div class="tech-chip">
+        <div class="tech-layer">Database</div>
+        <div class="tech-name">PostgreSQL + PostGIS</div>
+        <div class="tech-note">Geospatial queries</div>
+      </div>
+      <div class="tech-chip">
+        <div class="tech-layer">Frontend</div>
+        <div class="tech-name">React + Mapbox GL</div>
+        <div class="tech-note">Community map UI</div>
+      </div>
+      <div class="tech-chip">
+        <div class="tech-layer">Notifications</div>
+        <div class="tech-name">Twilio / Bland.ai</div>
+        <div class="tech-note">SMS + AI voice alerts</div>
+      </div>
+      <div class="tech-chip">
+        <div class="tech-layer">Hosting</div>
+        <div class="tech-name">Railway / Fly.io</div>
+        <div class="tech-note">Cloud deployment</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="section-label">Founding Team</div>
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="avatar">MF</div>
+        <div class="team-info">
+          <div class="team-name">Mike Farley</div>
+          <div class="team-role">Founder &amp; Executive Director</div>
+          <div class="team-bio">
+            Former Fortune 500 program manager in robotics. Founder of Fructify LLC.
+            Leading product vision, nonprofit formation, and business operations.
+          </div>
+        </div>
+      </div>
+
+      <div class="team-card">
+        <div class="avatar">JF</div>
+        <div class="team-info">
+          <div class="team-name">Jim Farley</div>
+          <div class="team-role">Board President &amp; CTO</div>
+          <div class="team-bio">
+            Electrical engineer with patents in cellular chipset technology. Owns the
+            pilot site (NH lake community). Leading hardware architecture and firmware.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo">
+    <img src="https://raw.githubusercontent.com/FructifyMe/DigitalAssets/main/logos/darklogofructify.png"
+         alt="Fructify LLC" onerror="this.style.display='none'" />
+  </div>
+  <div class="footer-tagline">Cultivate Growth. Engineer Success.</div>
+  <div class="footer-copy">© 2026 Fructify LLC — Confidential. Prepared for AED Finder Project Team.</div>
+</footer>
+
+</body>
+</html>
